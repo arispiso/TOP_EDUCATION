@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="author" content="Aritz Lamelas" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet"  href="ingreso.css" />
+  <title>TopEducation | Pago</title>
+</head>
+<body>
+<div class="container">
+  <form id="pagar">
+    <section class="h-100 h-custom" style="background-color: #d0312d;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-lg-8 col-xl-6">
+            <div class="card rounded-3">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                   class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                   alt="Sample photo">
+              <div class="card-body p-4 p-md-5">
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Realizar pago</h3>
+                <tr th:each="estudiante:${estudiante}">
+                  <td th:text="${estudiante.rut}"></td>
+                  <td th:text="${estudiante.nombre}"></td>
+                  <td th:text="${estudiante.apellidos}"></td>
+                  <td th:text="${estudiante.NombreColegio}"></td>
+                  <td th:text="${estudiante.colegio}"></td>
+                  <td th:text="${estudiante.añoEgreso}"></td>
+                </tr>
+
+
+                <button type="submit" id="boton-pagar"  class="btn btn-outline-danger">Pagar</button>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+</body>
+</html>
