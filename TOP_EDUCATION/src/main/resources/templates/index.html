@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="author" content="Aritz Lamelas" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"  href="ingreso.css" />
+    <link rel="stylesheet"  href="../static/ingreso.css" />
     <title>TopEducation | Ingreso</title>
 </head>
 <body>
 <div class="container">
-    <form id="ingresar">
+    <form id="ingresar" th:action="@{/pagos}" method="GET">
         <section class="h-100 h-custom" style="background-color: #d0312d;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -66,8 +66,8 @@
                                         <input placeholder="Año" title="Indique el año de egreso del colegio" type="number" id="añoEgreso" name="añoEgreso" min="1900" max="2024" required>
                                     </div>
 
-                                    <!--<button type="submit" href="pagos.html" id="boton-ingresar" class="btn btn-outline-danger">Ingresar</button>-->
-                                    <a class="btn btn-outline-danger" href="pagos.html" role="button">Ingresar</a>
+                                    <button type="submit" id="boton-ingresar" class="btn btn-outline-danger">Ingresar</button>
+                                    <!--<a class="btn btn-outline-danger" href="pagos.html" role="button">Ingresar</a>-->
 
                                 </form>
                             </div>

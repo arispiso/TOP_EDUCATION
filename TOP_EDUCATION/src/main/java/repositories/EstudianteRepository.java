@@ -15,7 +15,7 @@ public interface EstudianteRepository extends JpaRepository<EstudianteEntity,Lon
     @Query("select e from EstudianteEntity e where e.nombre= :nombre")
     EstudianteEntity findByNameCustomQuery(@Param("nombre")String nombre);
 
-    @Query(value = "select * from estudiantes as e where e.nombre= :nombre",
+    @Query(value = "select * from estudiante as e where e.nombre= :nombre",
             nativeQuery = true)
     EstudianteEntity findByNameNativeQuery(@Param("nombre")String nombre);
 

@@ -25,7 +25,7 @@ public class EstudianteEntity {
 
     private String rut;
     private String nombre;
-    private String apellido;
+    private String apellidos;
     private Date fechaNacimiento;
     private TipoColegio colegioProcedente;
     private String nombreColegio;
