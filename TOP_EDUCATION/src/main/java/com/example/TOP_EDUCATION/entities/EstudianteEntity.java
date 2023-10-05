@@ -1,4 +1,4 @@
-package entities;
+package com.example.TOP_EDUCATION.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name = "estudiante") //Mapeo de la clase estudiante con la tabla estudiantes de la BD
+@Table(name = "estudiantes") //Mapeo de la clase estudiante con la tabla estudiantes de la BD
 @Data //getters y setters de lombok
 @NoArgsConstructor
 @AllArgsConstructor //constructor con y sin parametros de lombok
@@ -21,15 +21,14 @@ public class EstudianteEntity {
 
     @Id
     @Column(unique = true, nullable = false)
-    private Long id;
-
     private String rut;
+
     private String nombre;
     private String apellidos;
-    private Date fechaNacimiento;
-    private TipoColegio colegioProcedente;
-    private String nombreColegio;
-    private int añoEgreso;
-
-
+    private Date fecha_nacimiento;
+    private String colegio_procedente;
+    private String nombre_colegio;
+    private int anyo_Egreso;
+    private String pago;
+    private int num_cuotas;
 }

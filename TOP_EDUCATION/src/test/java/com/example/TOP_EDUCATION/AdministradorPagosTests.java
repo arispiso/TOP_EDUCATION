@@ -1,18 +1,17 @@
 package com.example.TOP_EDUCATION;
 
-import entities.EstudianteEntity;
-import entities.TipoColegio;
+//import com.example.TOP_EDUCATION.entities.EstudianteEntity;
 import org.junit.jupiter.api.Test;
-import services.AdministradorPagos;
+import com.example.TOP_EDUCATION.services.AdministradorPagos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class AdministradorPagosTests {
     AdministradorPagos admin = new AdministradorPagos();
-    EstudianteEntity estudiante = new EstudianteEntity();
-    TipoColegio colegio;
+    //EstudianteEntity estudiante = new EstudianteEntity();
+
 
     @Test
     void descuentoPorPagoAlContadoTest(){
@@ -22,60 +21,61 @@ public class AdministradorPagosTests {
 
     @Test
     void descuentoPorCuotaTest(){
-        TipoColegio colegioM = colegio.MUNICIPAL;
-        double descuentoCuotaMunicipal = admin.descuentoPorCuota(colegioM);
+        String colegioMunicipal = "Municipal";
+        double descuentoCuotaMunicipal = admin.descuentoPorCuota(colegioMunicipal);
         assertEquals(300000,descuentoCuotaMunicipal,0);
 
-        TipoColegio colegioS = colegio.SUBVENCIONADO;
-        double descuentoCuotaSubvencionado = admin.descuentoPorCuota(colegioS);
+        String colegioSubvencionado = "Subvencionado";
+        double descuentoCuotaSubvencionado = admin.descuentoPorCuota(colegioSubvencionado);
         assertEquals(150000,descuentoCuotaSubvencionado,0);
 
-        TipoColegio colegioP = colegio.PRIVADO;
-        double descuentoCuotaPrivado = admin.descuentoPorCuota(colegioP);
+        String colegioPrivado = "Privado";
+        double descuentoCuotaPrivado = admin.descuentoPorCuota(colegioPrivado);
         assertEquals(0, descuentoCuotaPrivado, 0);
 
     }
 
-    @Test void descuentoPorAñoEgresoTest(){
-        int año = 2023;
-        int año2 = 2022;
-        int año3 = 2020;
-        int año4 = 2015;
+    @Test void descuentoPorAnyoEgresoTest(){
+        int anyo = 2023;
+        int anyo2 = 2022;
+        int anyo3 = 2020;
+        int anyo4 = 2015;
 
-        double menosDe1Año = admin.descuentoPorAñoEgreso(año);
-        assertEquals(225000, menosDe1Año, 0);
+        double menosDe1Anyo = admin.descuentoPorAnyoEgreso(anyo);
+        assertEquals(225000, menosDe1Anyo, 0);
 
-        double entre1y2 = admin.descuentoPorAñoEgreso(año2);
+        double entre1y2 = admin.descuentoPorAnyoEgreso(anyo2);
         assertEquals(120000, entre1y2, 0);
 
-        double entre3y4 = admin.descuentoPorAñoEgreso(año3);
+        double entre3y4 = admin.descuentoPorAnyoEgreso(anyo3);
         assertEquals(60000, entre3y4, 0);
 
-        double demas = admin.descuentoPorAñoEgreso(año4);
+        double demas = admin.descuentoPorAnyoEgreso(anyo4);
         assertEquals(0, demas, 0);
     }
 
     @Test
     void descuentoTotalTest(){
 
-        TipoColegio colegioM = colegio.MUNICIPAL;
-        int año2 = 2022;
+        String colegioMunicipal = "Municipal";
+        int anyo2 = 2022;
 
-        double d = admin.descuentoTotal(colegioM,año2);
-        assertEquals(420000,d,0);
+        double d = admin.descuentoTotal(colegioMunicipal,anyo2);
+        assertEquals(1080000,d,0);
     }
 
     @Test
     void pagoPorCuotasTest(){
 
-        TipoColegio colegioS = TipoColegio.SUBVENCIONADO;
-        TipoColegio colegioP = TipoColegio.PRIVADO;
+        String colegioS = "Subvencionado";
+        String colegioP = "Privado";
+        int anyo = 2022;
         int cuotas = 5;
 
-        double bien = admin.pagoPorCuotas(colegioS, cuotas);
-        assertEquals(300000, bien, 0);
+        double bien = admin.pagoPorCuotas(colegioS,anyo, cuotas);
+        assertEquals(246000, bien, 0);
 
-        double mal = admin.pagoPorCuotas(colegioP, cuotas);
+        double mal = admin.pagoPorCuotas(colegioP,anyo, cuotas);
         assertEquals(0,mal,0);
 
     }

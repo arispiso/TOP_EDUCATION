@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="author" content="Aritz Lamelas" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"  href="../static/ingreso.css" />
+    <link rel="stylesheet"  href="../static/ctm/css/ingreso.css" />
     <title>TopEducation | Ingreso</title>
 </head>
 <body>
 <div class="container">
-    <form id="ingresar" th:action="@{/pagos}" method="GET">
+    <form id="ingresar" th:action="@{/index}" method="POST">
         <section class="h-100 h-custom" style="background-color: #d0312d;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,9 +19,8 @@
                                  class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
                                  alt="Sample photo">
                             <div class="card-body p-4 p-md-5">
-                                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Ingreso de estudiante</h3>
-
-                                <form class="px-md-2">
+                                <h4 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Ingresa tus datos:</h4>
+                                <form class="px-md-2" th:action="@{/index}" method="POST">
                                     <div class = "row">
                                         <div class="form-outline mb-4">
                                             <label for="nombre">  </label>
@@ -41,7 +40,7 @@
 
                                     <div class="form-outline mb-4">
                                         <label for="fecha">  </label>
-                                        <input type="date" placeholder= "Fecha de nacimiento" title="Indique su fecha de nacimiento" id="fecha" name="fecha" onkeydown="return false" required>
+                                        <input type="date" placeholder= "Fecha de nacimiento" title="Indique su fecha de nacimiento" id="fecha" name="fecha" required>
                                     </div>
 
                                     <div class = "row">
@@ -59,15 +58,32 @@
                                                 <option value="Privado">Privado</option>
                                             </select>
                                         </div>
+                                        <div class="form-outline mb-4">
+                                            <label for="anyoEgreso">  </label>
+                                            <input placeholder="Año" title="Indique el año de egreso del colegio" type="number" id="anyoEgreso" name="anyoEgreso" min="1900" max="2023" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div id="div_pago">
+                                            <label for="pago"> Tipo de pago: </label>
+                                            <select id="pago" name="pago" required>
+                                                <option value="tipo_pago" disabled>Tipo de pago</option>
+                                                <option id="Por cuotas" value="Por cuotas" >Pago por cuotas</option>
+                                                <option id="Al contado" value="Al contado" >Pago al contado</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <div id="div-numCuotas">
+                                            <label for="numCuotas"> Número de cuotas: </label>
+                                            <select id="numCuotas" name="numCuotas" >
+                                                <option label="0" value="0" ></option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <label for="añoEgreso">  </label>
-                                        <input placeholder="Año" title="Indique el año de egreso del colegio" type="number" id="añoEgreso" name="añoEgreso" min="1900" max="2024" required>
-                                    </div>
-
+                                    <br>
                                     <button type="submit" id="boton-ingresar" class="btn btn-outline-danger">Ingresar</button>
-                                    <!--<a class="btn btn-outline-danger" href="pagos.html" role="button">Ingresar</a>-->
+                                    <!--<a class="btn btn-outline-danger" href="/pagos" role="button">Ingresar</a>-->
 
                                 </form>
                             </div>
@@ -78,6 +94,76 @@
         </section>
     </form>
 </div>
+<script>
+    //JS para cambiar el máximo de cuotas dependiendo el tipo de colegio seleccionado
+    const tipoColegioSelect = document.getElementById('colegio');
+    const pagarCuotasSelect = document.getElementById('numCuotas');
+    const tipoPagoSelect = document.getElementById('pago');
+
+    let cuotasSeleccionadas = '';
+
+    tipoPagoSelect.addEventListener('change', function() {
+
+        const tipoPago = tipoPagoSelect.value;
+
+        pagarCuotasSelect.style.display = 'none';
+        pagarCuotasSelect.innerHTML = '';
+
+        let minCuotas = 0;
+        let maxCuotas = 0;
+
+        if (tipoPago === 'Por cuotas') {
+
+            const tipoColegio = tipoColegioSelect.value;
+
+                switch (tipoColegio) {
+                    case 'Municipal':
+                        maxCuotas = 10;
+                        break;
+                    case 'Subvencionado':
+                        maxCuotas = 7;
+                        break;
+                    case 'Privado':
+                        maxCuotas = 4;
+                        break;
+                    default:
+                        maxCuotas = 0;
+                        break;
+                }
+                minCuotas = 2;
+            }
+        else {
+            minCuotas = 1;
+            maxCuotas = 1;
+        }
+
+        if(maxCuotas > 0) {
+            for (let i = minCuotas; i <= maxCuotas; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + ' cuotas';
+                pagarCuotasSelect.appendChild(option);
+            }
+            pagarCuotasSelect.style.display = 'block';
+        }
+    });
+
+    tipoColegioSelect.addEventListener('change', function (){
+
+        const  tipoColegio = tipoColegioSelect.value;
+
+        if (tipoColegio === 'Al contado') {
+            cuotasSeleccionadas = pagarCuotasSelect.value;
+        }
+
+        tipoPagoSelect.dispatchEvent(new Event('change'));
+
+    })
+
+    // Llama al evento change manualmente para inicializar las opciones
+    tipoPagoSelect.dispatchEvent(new Event('change'));
+
+</script>
 <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>
