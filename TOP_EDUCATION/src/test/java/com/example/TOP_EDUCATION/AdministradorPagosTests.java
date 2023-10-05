@@ -69,13 +69,13 @@ public class AdministradorPagosTests {
 
         String colegioS = "Subvencionado";
         String colegioP = "Privado";
-        int anyo = 2022;
+        int anio = 2022;
         int cuotas = 5;
 
-        double bien = admin.pagoPorCuotas(colegioS,anyo, cuotas);
+        double bien = admin.pagoPorCuotas(colegioS,anio, cuotas);
         assertEquals(246000, bien, 0);
 
-        double mal = admin.pagoPorCuotas(colegioP,anyo, cuotas);
+        double mal = admin.pagoPorCuotas(colegioP,anio, cuotas);
         assertEquals(0,mal,0);
 
     }
