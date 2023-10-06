@@ -58,7 +58,6 @@ public class CuotaService {
         int i = 1;
         boolean enc = false;
 
-        //for(int i = 1; i<=numCuotas; i++){
         while((i<=numCuotas) && !enc){
             CuotaEntity c = cuotaRepository.findById(i);
 
@@ -70,9 +69,6 @@ public class CuotaService {
                 i++;
             }
         }
-
-        //}
-
     }
 }
 
