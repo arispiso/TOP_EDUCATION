@@ -22,7 +22,6 @@ public class CuotaServiceTests {
     @Autowired
     private CuotaRepository  cuotaRepository;
 
-
     @Test
     public void testObtenerCuotas() {
 
