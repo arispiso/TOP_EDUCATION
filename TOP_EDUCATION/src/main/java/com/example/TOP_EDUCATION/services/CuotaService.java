@@ -51,7 +51,7 @@ public class CuotaService {
         if(diaActual>=5 && diaActual<=10){
              CuotaEntity c =  cuotaRepository.findById(id);
 
-             c.setEstado("Solicitado el:" + fechaActual + "para pagar");
+             c.setEstado("Solicitado el:" + fechaActual + " para pagar");
 
              guardarCuota(c);
         }
