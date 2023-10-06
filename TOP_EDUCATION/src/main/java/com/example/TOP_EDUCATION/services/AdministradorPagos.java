@@ -1,5 +1,6 @@
 package com.example.TOP_EDUCATION.services;
 
+import com.example.TOP_EDUCATION.entities.CuotaEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -61,7 +62,6 @@ public class AdministradorPagos {
         }
     }
     //else { return 0; }
-
 
 }
 

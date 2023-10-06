@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
 
-    public Optional<CuotaEntity> findById(int id);
+    public CuotaEntity findById(int id);
 
     //dos maneras diferentes de hacer una consulta a nuestra BD, en este caso
     // para buscar por su nombre
@@ -19,8 +19,5 @@ public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
     @Query(value = "select * from cuotas as c where c.id= :id",
             nativeQuery = true)
     CuotaEntity findByIDNativeQuery(@Param("id")int id);
-
-    @Query(value = "SELECT MAX(id) FROM cuotas", nativeQuery = true)
-    int findByMaxIDNativeQuery();
 
 }

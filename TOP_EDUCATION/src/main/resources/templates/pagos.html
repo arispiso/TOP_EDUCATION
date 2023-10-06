@@ -60,8 +60,8 @@
 </head>
 <body>
 <div th:align="center" class = "container my-2">
-    <h2><b> TUS PAGOS:</b></h2>
-    <form class="px-md-2" >
+    <h2><b> TUS CUOTAS:</b></h2>
+    <form class="px-md-2" th:action="@{/pagos}" method="POST">
         <table th:border = "1" class = "content-table">
             <thead>
             <tr>
@@ -82,9 +82,9 @@
             </tr>
             </tbody>
         </table>
-        <div id="div-boton-pagar-cuota" align="center">
-            <button type="" id="boton-pagar-cuota" class="btn btn-outline-danger">Pagar cuota</button>
-        </div>
+            <div id="div-boton-pagar-cuota" align="center">
+                <button type="submit" id="boton-pagar-cuota" class="btn btn-outline-danger">Pagar cuota</button>
+            </div>
     </form>
 </div>
 </body>

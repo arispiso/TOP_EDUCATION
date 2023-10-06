@@ -35,4 +35,10 @@ public class CuotaController {
      return "redirect:/pagos";
     }
 
+    @PostMapping("/pagos")
+    public String pagarCuota() {
+        cuotaService.pagarCuota();
+        return "redirect:/datos";
+    }
+
 }

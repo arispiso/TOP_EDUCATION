@@ -41,4 +41,38 @@ public class CuotaService {
 
     }
 
+    //Método para pasar el estado de la cuota de Pendiente a Pagado
+    public void actualizarEstado(int id){
+
+        CuotaEntity c =  cuotaRepository.findById(id);
+
+        c.setEstado("Pagado");
+
+        guardarCuota(c);
+    }
+
+    public void pagarCuota(){
+
+        ArrayList<CuotaEntity> cuotas =  obtenerCuotas();
+        int numCuotas = cuotas.size();
+        int i = 1;
+        boolean enc = false;
+
+        //for(int i = 1; i<=numCuotas; i++){
+        while((i<=numCuotas) && !enc){
+            CuotaEntity c = cuotaRepository.findById(i);
+
+            if(c.getEstado().equalsIgnoreCase("Pendiente")){
+                actualizarEstado(i);
+                enc = true;
+            }
+            else {
+                i++;
+            }
+        }
+
+        //}
+
+    }
 }
+
