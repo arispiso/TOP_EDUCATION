@@ -47,10 +47,7 @@ public class AdministradorPagos {
 
     public double pagoPorCuotas(String colegio, int anyo, int numCuotas) {
 
-        //LocalDate fechaActual = LocalDate.now();
-        //int diaActual = fechaActual.getDayOfMonth();
 
-        //if(diaActual>=5 && diaActual<=10){
         if (colegio.equalsIgnoreCase("Municipal") && numCuotas <= 10) {
             return descuentoTotal(colegio,anyo) / numCuotas;
         } else if (colegio.equalsIgnoreCase("Subvencionado") && numCuotas <= 7) {

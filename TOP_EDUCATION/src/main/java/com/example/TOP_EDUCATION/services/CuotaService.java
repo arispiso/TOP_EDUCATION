@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import com.example.TOP_EDUCATION.repositories.EstudianteRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -44,11 +45,16 @@ public class CuotaService {
     //Método para pasar el estado de la cuota de Pendiente a Pagado
     public void actualizarEstado(int id){
 
-        CuotaEntity c =  cuotaRepository.findById(id);
+        LocalDate fechaActual = LocalDate.now();
+        int diaActual = fechaActual.getDayOfMonth();
 
-        c.setEstado("Pagado");
+        if(diaActual>=5 && diaActual<=10){
+             CuotaEntity c =  cuotaRepository.findById(id);
 
-        guardarCuota(c);
+             c.setEstado("Solicitado el:" + fechaActual + "para pagar");
+
+             guardarCuota(c);
+        }
     }
 
     public void pagarCuota(){
