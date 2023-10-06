@@ -21,12 +21,11 @@ public class CuotaService {
     @Autowired
     private AdministradorPagos administradorPagos;
 
-
     public ArrayList<CuotaEntity> obtenerCuotas(){
         return (ArrayList<CuotaEntity>) cuotaRepository.findAll();
     }
 
-    public Optional<CuotaEntity> obtenerPorId(Long id) {
+    public CuotaEntity obtenerPorId(int id) {
         return cuotaRepository.findById(id);
     }
     public void guardarCuota(CuotaEntity cuota){
@@ -51,7 +50,7 @@ public class CuotaService {
         if(diaActual>=5 && diaActual<=10){
              CuotaEntity c =  cuotaRepository.findById(id);
 
-             c.setEstado("Solicitado el:" + fechaActual + " para pagar");
+             c.setEstado("Solicitado para pagar");
 
              guardarCuota(c);
         }
