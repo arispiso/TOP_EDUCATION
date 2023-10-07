@@ -18,9 +18,6 @@ public class CuotaService {
     @Autowired
     CuotaRepository cuotaRepository;
 
-    @Autowired
-    private AdministradorPagos administradorPagos;
-
     public ArrayList<CuotaEntity> obtenerCuotas(){
         return (ArrayList<CuotaEntity>) cuotaRepository.findAll();
     }

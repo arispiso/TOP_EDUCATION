@@ -1,9 +1,11 @@
 package com.example.TOP_EDUCATION.repositories;
 import com.example.TOP_EDUCATION.entities.CuotaEntity;
+import com.example.TOP_EDUCATION.entities.EstudianteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -19,5 +21,9 @@ public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
     @Query(value = "select * from cuotas as c where c.id= :id",
             nativeQuery = true)
     CuotaEntity findByIDNativeQuery(@Param("id")int id);
+
+    @Query(value ="select * from cuotas",
+            nativeQuery = true)
+    ArrayList<CuotaEntity> findAllCuotas();
 
 }

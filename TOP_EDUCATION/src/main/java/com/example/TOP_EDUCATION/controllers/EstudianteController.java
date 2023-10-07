@@ -44,7 +44,7 @@ public class EstudianteController {
         Date fechaNacimientoModify = formato.parse(fechaNacimiento);
         EstudianteEntity e = new EstudianteEntity(rut, nombre, apellidos, fechaNacimientoModify, colegio, nombreColegio, anyoEgreso, pago, num_cuotas);
         estudianteService.guardarEstudiante(e);
-        estudianteService.generarCuota(rut);
+        estudianteService.generarCuota(e);
 
 
         return "redirect:/datos";

@@ -23,7 +23,7 @@ public class CuotaServiceTests {
     private CuotaRepository  cuotaRepository;
 
     @Test
-    public void testObtenerCuotas() {
+    public void obtenerCuotasTest() {
 
         int id = 1;
         int id2 = 2;
@@ -50,7 +50,7 @@ public class CuotaServiceTests {
     }
 
     @Test
-    public void testObtenerPorId() {
+    public void obtenerPorIdTest() {
 
         int id = 1;
         String estado = "Pendiente";

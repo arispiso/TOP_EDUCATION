@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Service
 public class AdministradorPagos {
 
-    private static final int matricula = 70000;
     private double arancel = 1500000;
 
     public double descuentoPorPagoAlContado() {

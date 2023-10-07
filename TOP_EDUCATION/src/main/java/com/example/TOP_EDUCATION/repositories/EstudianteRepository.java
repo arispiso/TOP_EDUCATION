@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public interface EstudianteRepository extends JpaRepository<EstudianteEntity,Long> {
 
     public EstudianteEntity findByRut(String rut);
@@ -16,5 +19,9 @@ public interface EstudianteRepository extends JpaRepository<EstudianteEntity,Lon
     @Query(value = "select * from estudiantes as e where e.nombre= :nombre",
             nativeQuery = true)
     EstudianteEntity findByNameNativeQuery(@Param("nombre")String nombre);
+
+    @Query(value ="select * from estudiantes",
+            nativeQuery = true)
+    ArrayList<EstudianteEntity> findAllStudents();
 
 }

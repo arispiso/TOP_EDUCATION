@@ -22,11 +22,7 @@ public class EstudianteService {
     CuotaService cuotaService;
 
     public ArrayList<EstudianteEntity> obtenerEstudiantes(){
-        return (ArrayList<EstudianteEntity>) estudianteRepository.findAll();
-    }
-
-    public Optional<EstudianteEntity> obtenerPorId(Long id) {
-        return estudianteRepository.findById(id);
+        return (ArrayList<EstudianteEntity>) estudianteRepository.findAllStudents();
     }
 
     public EstudianteEntity obtenerPorRut(String rut){
@@ -60,11 +56,12 @@ public class EstudianteService {
         return e.getAnyo_Egreso();
     }
 
-    public void generarCuota(String rut){
+    public void generarCuota(EstudianteEntity e){
 
-        int numCuotas = obtenerNumeroCuotas(rut);
-        String tipoColegio = obtenerTipoColegio(rut);
-        int anyo = obtenerAnyoEgreso(rut);
+        String rut = e.getRut();
+        int numCuotas = e.getNum_cuotas();
+        String tipoColegio = e.getColegio_procedente();
+        int anyo = e.getAnyo_Egreso();
 
         double valor = 0;
 
