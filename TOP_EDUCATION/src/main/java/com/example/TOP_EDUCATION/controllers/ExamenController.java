@@ -19,6 +19,7 @@ public class ExamenController {
     @Autowired
     ExamenService examenService;
 
+
     //@GetMapping("/")
     //public String examenes(Model model) {
     //  ArrayList<ExamenEntity> examenes = examenService.obtenerExamenes();
