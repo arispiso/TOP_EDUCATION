@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+            crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <title>TopEducation | Adjuntar prueba</title>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 2%;
+        }
+        .f{
+            margin-top: 40px;
+            border: 3px solid rgb(162, 161, 161);
+            padding: 40px;
+            padding-top: 10px;
+            border-radius: 40px;
+            margin-left: 300px;
+            margin-right: 300px;
+        }
+        @media(max-width: 1200px){
+            .f{margin-left: 200px;
+                margin-right: 200px;}
+        }
+        .header{
+            background-color: #F0394D;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 85px;
+            padding: 5px 10%;
+        }
+        .header .logo{
+            margin-right: auto;
+            color: white;
+            font-family: 'Pacifico',serif;
+        }
+        .header .btn button{
+            margin-left: 20px;
+            font-weight: 700;
+            color: #F0394D;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+        .header .btn-2 button {
+            margin-left: 20px;
+            font-weight: 700;
+            color: #F0394D;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn-2 button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+        .form1{
+            border: 1px solid rgb(82, 82, 173);
+            padding: 30px;
+            border-radius: 30px;
+            margin-left: 300px;
+            margin-right: 300px;
+        }
+        *{
+            font-family: sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .content-table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .content-table thead tr{
+            background-color: #F0394D;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .content-table th,
+        .content-table td{
+            padding: 12px 15px;
+        }
+        .content-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+        .content-table tbody tr:nth-of-type(even){
+            background-color: #f3f3f3;
+        }
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #F0394D;
+        }
+        .content-table tbody tr.active-row{
+            font-weight: bold;
+            color: #F0394D;
+        }
+    </style>
+</head>
+<body>
+<header class="header"></header>
+<div class = "f">
+    <div class="container">
+        <h1><b>Cargar el archivo de datos</b></h1>
+        <form th:action="@{/adjuntarPrueba}" method="POST" enctype="multipart/form-data">
+            <br>
+            <input type="file" class="form-control" name="file" accept = ".csv">
+            <br>
+            <input class = "btn btn-primary"
+                   type="submit" value="Cargar el archivo a la Base de Datos">
+            <br>
+        </form>
+        <br>
+        <u><b> <h2 th:text="${mensaje}"></h2></b></u>
+    </div>
+</div>
+<br>
+<hr>
+<div class = "form1" align="center">
+    <h5><b>La prueba adjuntada debe ser un Excel (.csv)</b></h5>
+</div>
+<br>
+<br>
+<div align="center" th:align="center" class = "container my-2">
+    <h2><b> TUS EXÁMENES:</b></h2>
+        <table th:border = "1" class = "content-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>PUNTAJE</th>
+                <th>FECHA</th>
+                <th>RUT DEL ESTUDIANTE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="examen:${examenes}">
+                <td th:text="${examen.id}"></td>
+                <td th:text="${examen.puntaje}"></td>
+                <td th:text="${examen.fecha_examen}"></td>
+                <td th:text="${examen.rut_estudiante}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>
