@@ -20,6 +20,4 @@ public class CuotaEntity {
     private double valor;
     private int cantidad_cuotas;
     private String rutEstudiante;
-
-
 }
