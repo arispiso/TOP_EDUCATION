@@ -46,7 +46,6 @@ public class EstudianteController {
         estudianteService.guardarEstudiante(e);
         estudianteService.generarCuota(e);
 
-
         return "redirect:/datos";
     }
 }

@@ -28,17 +28,28 @@ public class ExamenService {
     @Autowired
     ExamenRepository examenRepository;
 
+    @Autowired
+    CuotaService cuotaService;
+
     private final Logger logg = LoggerFactory.getLogger(ExamenService.class);
 
     public ArrayList<ExamenEntity> obtenerExamenes(){
         return (ArrayList<ExamenEntity>) examenRepository.findAll();
     }
 
-    public ExamenEntity obtenerPorId(int id) {
-        return examenRepository.findById(id);
-    }
+    //public int obtenerPuntajePorRut(String rut)
+    //{
+    //  ExamenEntity e = examenRepository.findByRut_estudiante(rut);
+    // return e.getPuntaje();
+    // }
+    //public ExamenEntity obtenerExamenPorRut(String rut)
+    //{
+    //  return examenRepository.findByRut_estudiante(rut);
+
+    //}
     public void guardarExamen(ExamenEntity examen){
         examenRepository.save(examen);
+        cuotaService.descuentoPorExamenAdmision(examen.getPuntaje());
     }
 
     public void guardarExamenBD(int puntaje, String fecha_examen, String rut_estudiante){
@@ -47,16 +58,11 @@ public class ExamenService {
         examen.setFecha_examen(fecha_examen);
         examen.setRut_estudiante(rut_estudiante);
         guardarExamen(examen);
+        cuotaService.descuentoPorExamenAdmision(puntaje);
     }
 
     public void eliminarExamen(ExamenEntity examen){
-        try {
             examenRepository.delete(examen);
-        }
-        catch (Exception e) {
-            System.out.println("Error al eliminar el examen: " + examen);
-        }
-
     }
 
     @Generated
@@ -87,28 +93,27 @@ public class ExamenService {
         String texto = "";
         BufferedReader bf = null;
         examenRepository.deleteAll();
-        System.out.println("Estoy dentrooo");
+
         try{
             bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
             String bfRead;
             int count = 1;
-            System.out.println("Estoy dentrooo 2");
+            System.out.println("DENTRO");
             while((bfRead = bf.readLine()) != null){
-                System.out.println("Estoy dentrooo 3");
+                System.out.println("DENTRO1");
                 if (count == 1){
-                    System.out.println("Estoy dentrooo 4");
                     count = 0;
+                    System.out.println("DENTRO2");
                 }
                 else{
-                    System.out.println("Estoy dentrooo 5");
+                    System.out.println("DENTRO3");
                     guardarExamenBD(Integer.parseInt(bfRead.split(";")[0]), bfRead.split(";")[1], bfRead.split(";")[2]);
-                    System.out.println("Estoy dentrooo 6");
+                    System.out.println("DENTRO4");
                     temp = temp + "\n" + bfRead;
-                    System.out.println("Estoy dentrooo 7");
+                    System.out.println("DENTRO5");
                 }
             }
-            System.out.println("Estoy dentrooo 6");
             texto = temp;
             System.out.println("Archivo leido exitosamente");
         }catch(Exception e){

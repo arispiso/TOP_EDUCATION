@@ -1,6 +1,10 @@
 package com.example.TOP_EDUCATION;
 
 //import com.example.TOP_EDUCATION.entities.EstudianteEntity;
+import com.example.TOP_EDUCATION.entities.CuotaEntity;
+import com.example.TOP_EDUCATION.entities.EstudianteEntity;
+import com.example.TOP_EDUCATION.services.CuotaService;
+import com.example.TOP_EDUCATION.services.EstudianteService;
 import org.junit.jupiter.api.Test;
 import com.example.TOP_EDUCATION.services.AdministradorPagos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,12 @@ public class AdministradorPagosTests {
 
     @Autowired
     AdministradorPagos administradorPagos;
+
+    @Autowired
+    private CuotaService cuotaService;
+
+    @Autowired
+    private EstudianteService estudianteService;
 
     @Test
     void descuentoPorPagoAlContadoTest(){
@@ -66,17 +76,25 @@ public class AdministradorPagosTests {
     @Test
     void pagoPorCuotasTest(){
 
+        String colegioM = "Municipal";
         String colegioS = "Subvencionado";
         String colegioP = "Privado";
         int anio = 2022;
         int cuotas = 5;
+        int cuotas2 = 2;
 
-        double bien = administradorPagos.pagoPorCuotas(colegioS,anio, cuotas);
-        assertEquals(246000, bien, 0);
+        double bien = administradorPagos.pagoPorCuotas(colegioM,anio, cuotas2);
+        assertEquals(540000, bien, 0);
+
+        double bien1 = administradorPagos.pagoPorCuotas(colegioS,anio, cuotas);
+        assertEquals(246000, bien1, 0);
+
+        double bien2 = administradorPagos.pagoPorCuotas(colegioP,anio, cuotas2);
+        assertEquals(690000, bien2, 0);
 
         double mal = administradorPagos.pagoPorCuotas(colegioP,anio, cuotas);
         assertEquals(0,mal,0);
 
     }
-
+    
 }

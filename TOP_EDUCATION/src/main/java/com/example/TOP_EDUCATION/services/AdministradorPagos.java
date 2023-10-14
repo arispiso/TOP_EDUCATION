@@ -1,6 +1,7 @@
 package com.example.TOP_EDUCATION.services;
 
 import com.example.TOP_EDUCATION.entities.CuotaEntity;
+import com.example.TOP_EDUCATION.entities.ExamenEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,10 @@ import java.util.ArrayList;
 @Service
 public class AdministradorPagos {
 
-    @Autowired
-    CuotaService cuotaService;
-
     private double arancel = 1500000;
 
     public double descuentoPorPagoAlContado() {
-        return arancel - (arancel * 0.5);
+        return arancel - (arancel*0.5);
     }
 
     public double descuentoPorCuota(String colegio) {
@@ -64,27 +62,33 @@ public class AdministradorPagos {
         }
     }
 
-    public void descuentoPorExamenAdmision(int puntuaje) {
 
-        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerCuotas();
 
-        for (int i = 0; i <= cuotas.size(); i++) {
-            CuotaEntity c = cuotas.get(i);
-            if (c.getEstado().equalsIgnoreCase("Pendiente")) {
-                if (puntuaje >= 950 && puntuaje <= 1000) {
-                    //10% a todas las cuotas pendientes  de pago
-                    c.setValor(c.getValor() - c.getValor() * 0.1);
-                } else if (puntuaje >= 900 && puntuaje <= 949) {
-                    //5%
-                    c.setValor(c.getValor() - c.getValor() * 0.05);
-                } else if (puntuaje >= 850 && puntuaje <= 899) {
-                    //2%
-                    c.setValor(c.getValor() - c.getValor() * 0.02);
-                }
-            }
-        }
+    // public double interesPorAtraso(int mes){
 
-    }
+        //ArrayList<CuotaEntity> cuotas = cuotaService.obtenerCuotas();
+
+    // LocalDate fechaActual = LocalDate.now();
+    //int mesActual = fechaActual.getMonthValue();
+    // int diferenciaAnyos = mesActual - mes;
+
+    // if(diferenciaAnyos <= 0){
+    //     return 0;
+    // } else if (diferenciaAnyos == 1) {
+    //     //3%
+    //       return 0;
+    //  }else if (diferenciaAnyos == 2) {
+    //       //6%
+    //      return 0;
+    //   }else if (diferenciaAnyos == 3) {
+            //9%
+    //       return 0;
+    //   }
+    //   else {
+            //15%
+    //      return 0;
+    //  }
+    // }
 }
 
 

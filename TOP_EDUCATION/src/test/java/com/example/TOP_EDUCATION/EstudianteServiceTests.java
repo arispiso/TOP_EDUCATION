@@ -237,6 +237,7 @@ public class EstudianteServiceTests {
         EstudianteEntity e1 = new EstudianteEntity(rut1, nombre, apellidos, fecha_nacimiento, colegio_procedente, nombre_colegio, anyo_Egreso, pago2, num_cuotas1);
         EstudianteEntity e2 = new EstudianteEntity(rut2, nombre, apellidos, fecha_nacimiento, colegio_procedente2, nombre_colegio, anyo_Egreso, pago2, num_cuotas2);
         EstudianteEntity e3 = new EstudianteEntity(rut3, nombre, apellidos, fecha_nacimiento, colegio_procedente3, nombre_colegio, anyo_Egreso, pago2, num_cuotas3);
+        EstudianteEntity e4 = new EstudianteEntity(rut1, nombre, apellidos, fecha_nacimiento, colegio_procedente3, nombre_colegio, anyo_Egreso, pago2, num_cuotas3);
 
         estudianteService.guardarEstudiante(e);
         estudianteService.guardarEstudiante(e1);
@@ -247,6 +248,7 @@ public class EstudianteServiceTests {
         estudianteService.eliminarEstudiante(e1);
         estudianteService.eliminarEstudiante(e2);
         estudianteService.eliminarEstudiante(e3);
+        estudianteService.eliminarEstudiante(e4);
 
         ArrayList<EstudianteEntity> resultado = estudianteService.obtenerEstudiantes();
         assertEquals(0, resultado.size());

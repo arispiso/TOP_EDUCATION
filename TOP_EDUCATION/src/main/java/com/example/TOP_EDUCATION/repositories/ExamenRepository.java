@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface ExamenRepository extends JpaRepository<ExamenEntity,Long> {
 
-    public ExamenEntity findById(int id);
+    //public ExamenEntity findByRut_estudiante(String rut);
 
     //dos maneras diferentes de hacer una consulta a nuestra BD,
     // en este caso para buscar por su nombre

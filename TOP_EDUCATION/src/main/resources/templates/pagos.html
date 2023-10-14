@@ -19,6 +19,46 @@
             margin: 0;
             padding: 0;
         }
+        .header{
+            background-color: #F0394D;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 85px;
+            padding: 5px 10%;
+        }
+        .header .btn button{
+            margin-left: 20px;
+            font-weight: 700;
+            color: #F0394D;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn button:hover{
+            background-color: #e2f1f8;
+            color: #AB2A3E;
+            transform: scale(1.1);
+        }
+        .header .btn-2 button {
+            margin-left: 20px;
+            font-weight: 700;
+            color: #F0394D;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn-2 button:hover{
+            background-color: #e2f1f8;
+            color: #AB2A3E;
+            transform: scale(1.1);
+        }
         .content-table{
             border-collapse: collapse;
             margin: 25px 0;
@@ -58,6 +98,9 @@
         }
     </style>
 </head>
+<header class="header">
+    <a class="btn" href="/datos"><button>Volver al menú principal</button></a>
+</header>
 <body>
 <div th:align="center" class = "container my-2">
     <h2><b> TUS CUOTAS:</b></h2>
@@ -87,8 +130,29 @@
         </div>
             <div id="div-boton-pagar-cuota" align="center">
                 <button type="submit" id="boton-pagar-cuota" class="btn btn-outline-danger">Pagar cuota</button>
+                <p style="display: none"> <span id="fechaGuardada"></span></p>
             </div>
     </form>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecciona el botón y el elemento donde se mostrará la fecha guardada
+        const guardarFechaButton = document.getElementById("boton-pagar-cuota");
+        const fechaGuardadaElement = document.getElementById("fechaGuardada");
+
+        // Agrega un evento clic al botón
+        guardarFechaButton.addEventListener("click", function() {
+            // Obtiene la fecha actual
+            const fechaActual = new Date();
+
+            // Convierte la fecha en una cadena legible
+            const fechaFormateada = fechaActual.toLocaleString();
+
+            // Muestra la fecha en el elemento de la página
+            fechaGuardadaElement.textContent = fechaFormateada;
+        });
+    });
+
+</script>
 </body>
 </html>

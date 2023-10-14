@@ -21,6 +21,7 @@ public class EstudianteService {
     @Autowired
     CuotaService cuotaService;
 
+
     public ArrayList<EstudianteEntity> obtenerEstudiantes(){
         return (ArrayList<EstudianteEntity>) estudianteRepository.findAllStudents();
     }
@@ -34,12 +35,7 @@ public class EstudianteService {
     }
 
     public void eliminarEstudiante(EstudianteEntity estudiante){
-        try {
             estudianteRepository.delete(estudiante);
-        }catch (Exception e) {
-            System.out.println("Error al eliminar el estudiante: " + estudiante);
-        }
-
     }
 
     public int obtenerNumeroCuotas(String rut) {
@@ -56,12 +52,17 @@ public class EstudianteService {
         return e.getAnyo_Egreso();
     }
 
+    // public int obtenerPuntuajeExamen(String rut){
+    //  return examenService.obtenerPuntajePorRut(rut);
+    //}
+
     public void generarCuota(EstudianteEntity e){
 
         String rut = e.getRut();
         int numCuotas = e.getNum_cuotas();
         String tipoColegio = e.getColegio_procedente();
         int anyo = e.getAnyo_Egreso();
+        //int puntuaje = obtenerPuntuajeExamen(rut);
 
         double valor = 0;
 

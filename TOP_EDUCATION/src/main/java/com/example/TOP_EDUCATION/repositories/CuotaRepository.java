@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
 
     public CuotaEntity findById(int id);
+    public CuotaEntity findByRutEstudiante(String rut);
 
     //dos maneras diferentes de hacer una consulta a nuestra BD, en este caso
     // para buscar por su nombre
