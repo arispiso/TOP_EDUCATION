@@ -69,24 +69,20 @@ public class CuotaService {
                 i++;
             }
         }
+        interesPorAtraso();
     }
 
 
     public void descuentoPorExamenAdmision(int puntaje) {
 
-        System.out.println("METODO");
         ArrayList<CuotaEntity> cuotas =  cuotaRepository.findAllCuotas();
-        System.out.println("METODO" + cuotas);
         for(int i=0; i<=cuotas.size(); i++){
 
             CuotaEntity c = cuotas.get(i);
-            System.out.println("METODO" + c);
             if (c.getEstado().equalsIgnoreCase("Pendiente")) {
                 if (puntaje >= 950 && puntaje <= 1000) {
-                    System.out.println("METODO DENTRO 1:" + c.getValor());
                     //10% a todas las cuotas pendientes  de pago
                     c.setValor(c.getValor() - (c.getValor() * 0.1));
-                    System.out.println("METODO DENTRO 2:"+ c.getValor());
                     guardarCuota(c);
                 } else if (puntaje >= 900 && puntaje <= 949) {
                     //5%
@@ -97,6 +93,50 @@ public class CuotaService {
                     c.setValor(c.getValor() - (c.getValor() * 0.02));
                     guardarCuota(c);
                 }
+            }
+        }
+    }
+
+    public void interesPorAtraso() {
+
+        ArrayList<CuotaEntity> cuotas = obtenerCuotas();
+
+        //El estudiante tiene 1 mes desde que solicitó pagar la cuota para que no le cobren intereses
+        LocalDate fechaActual = LocalDate.now();
+        int mesActual = fechaActual.getMonthValue();
+
+        for (int i = 0; i<= cuotas.size(); i++) {
+
+            CuotaEntity c = cuotas.get(i);
+
+            String fecha = c.getFecha_cuota();
+            String[] partes = fecha.split("-");
+            int mes = Integer.parseInt(partes[1]);
+
+            int diferenciaAnyos = mesActual - mes;
+
+            if (diferenciaAnyos <= 0) {
+                guardarCuota(c);
+            }
+            else if (diferenciaAnyos == 1) {
+                //3%
+                c.setValor(c.getValor() + (c.getValor() * 0.03));
+                guardarCuota(c);
+            }
+            else if (diferenciaAnyos == 2) {
+                //6%
+                c.setValor(c.getValor() + (c.getValor() * 0.06));
+                guardarCuota(c);
+            }
+            else if (diferenciaAnyos == 3) {
+                //9%
+                c.setValor(c.getValor() + (c.getValor() * 0.09));
+                guardarCuota(c);
+            }
+            else {
+                //15%
+                c.setValor(c.getValor() + (c.getValor() * 0.15));
+                guardarCuota(c);
             }
         }
     }

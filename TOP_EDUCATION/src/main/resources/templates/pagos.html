@@ -110,6 +110,7 @@
             <tr>
                 <th>ID</th>
                 <th>ESTADO</th>
+                <th>FECHA</th>
                 <th>VALOR</th>
                 <th>NÚMERO DE CUOTAS</th>
                 <th>RUT DEL ESTUDIANTE</th>
@@ -119,6 +120,7 @@
             <tr th:each="cuota:${cuotas}">
                 <td th:text="${cuota.id}"></td>
                 <td th:text="${cuota.estado}"></td>
+                <td th:text="${cuota.fecha_cuota}"></td>
                 <td th:text="${cuota.valor}"></td>
                 <td th:text="${cuota.cantidad_cuotas}"></td>
                 <td th:text="${cuota.rutEstudiante}"></td>
@@ -130,29 +132,8 @@
         </div>
             <div id="div-boton-pagar-cuota" align="center">
                 <button type="submit" id="boton-pagar-cuota" class="btn btn-outline-danger">Pagar cuota</button>
-                <p style="display: none"> <span id="fechaGuardada"></span></p>
             </div>
     </form>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Selecciona el botón y el elemento donde se mostrará la fecha guardada
-        const guardarFechaButton = document.getElementById("boton-pagar-cuota");
-        const fechaGuardadaElement = document.getElementById("fechaGuardada");
-
-        // Agrega un evento clic al botón
-        guardarFechaButton.addEventListener("click", function() {
-            // Obtiene la fecha actual
-            const fechaActual = new Date();
-
-            // Convierte la fecha en una cadena legible
-            const fechaFormateada = fechaActual.toLocaleString();
-
-            // Muestra la fecha en el elemento de la página
-            fechaGuardadaElement.textContent = fechaFormateada;
-        });
-    });
-
-</script>
 </body>
 </html>

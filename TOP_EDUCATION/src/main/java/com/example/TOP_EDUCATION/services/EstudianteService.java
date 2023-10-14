@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.TOP_EDUCATION.repositories.EstudianteRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -64,6 +65,9 @@ public class EstudianteService {
         int anyo = e.getAnyo_Egreso();
         //int puntuaje = obtenerPuntuajeExamen(rut);
 
+        LocalDate fechaActual = LocalDate.now();
+        String fecha = fechaActual.toString();
+
         double valor = 0;
 
         if (numCuotas == 1){
@@ -74,7 +78,7 @@ public class EstudianteService {
         }
 
         for (int i = 1; i<= numCuotas; i++) {
-            cuotaService.guardarCuota(new CuotaEntity(i,"Pendiente", valor/numCuotas, numCuotas, rut));
+            cuotaService.guardarCuota(new CuotaEntity(i,"Pendiente", valor/numCuotas, numCuotas, rut,fecha));
         }
 
     }

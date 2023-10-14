@@ -64,31 +64,7 @@ public class AdministradorPagos {
 
 
 
-    // public double interesPorAtraso(int mes){
 
-        //ArrayList<CuotaEntity> cuotas = cuotaService.obtenerCuotas();
-
-    // LocalDate fechaActual = LocalDate.now();
-    //int mesActual = fechaActual.getMonthValue();
-    // int diferenciaAnyos = mesActual - mes;
-
-    // if(diferenciaAnyos <= 0){
-    //     return 0;
-    // } else if (diferenciaAnyos == 1) {
-    //     //3%
-    //       return 0;
-    //  }else if (diferenciaAnyos == 2) {
-    //       //6%
-    //      return 0;
-    //   }else if (diferenciaAnyos == 3) {
-            //9%
-    //       return 0;
-    //   }
-    //   else {
-            //15%
-    //      return 0;
-    //  }
-    // }
 }
 
 

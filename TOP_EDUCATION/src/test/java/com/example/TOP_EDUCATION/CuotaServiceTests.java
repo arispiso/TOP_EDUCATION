@@ -42,8 +42,8 @@ public class CuotaServiceTests {
         EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
         estudianteService.guardarEstudiante(e);
 
-        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
-        CuotaEntity c2 = new CuotaEntity(id2,estado2,valor,cantidad_cuotas,rut);
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,valor,cantidad_cuotas,rut,"2023-10-12");
 
         cuotaService.guardarCuota(c1);
         cuotaService.guardarCuota(c2);
@@ -68,7 +68,7 @@ public class CuotaServiceTests {
         int cantidad_cuotas = 1;
         String rut = "12345678-K";
 
-        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
 
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
         estudianteService.guardarEstudiante(e);
@@ -92,7 +92,8 @@ public class CuotaServiceTests {
         int cantidad_cuotas = 1;
         String rut = "12345678-K";
 
-        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
+
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
 
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
         estudianteService.guardarEstudiante(e);
@@ -115,7 +116,7 @@ public class CuotaServiceTests {
         int cantidad_cuotas = 1;
         String rut = "12345678-K";
 
-        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
         estudianteService.guardarEstudiante(e);
         cuotaService.guardarCuota(c);
@@ -134,7 +135,7 @@ public class CuotaServiceTests {
         int cantidad_cuotas = 1;
         String rut = "12345678-K";
 
-        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
 
         estudianteService.guardarEstudiante(e);
@@ -165,8 +166,8 @@ public class CuotaServiceTests {
         int cantidad_cuotas = 1;
         String rut = "12345678-K";
 
-        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut);
-        CuotaEntity cc = new CuotaEntity(2,"Solicitado para pagar",valor,cantidad_cuotas,rut);
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity cc = new CuotaEntity(2,"Solicitado para pagar",valor,cantidad_cuotas,rut,"2023-10-12");
 
 
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
