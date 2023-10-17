@@ -28,11 +28,6 @@ public class ExamenController {
         return "adjuntarPrueba";
     }
 
-    //@PostMapping("/datos")
-    //public String nuevoExamen() {
-    //  return "redirect:/adjuntarPrueba";
-    // }
-
     @PostMapping("/adjuntarPrueba")
     public String upload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         examenService.guardar(file);

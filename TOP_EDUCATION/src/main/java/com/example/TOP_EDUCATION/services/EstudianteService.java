@@ -24,7 +24,7 @@ public class EstudianteService {
 
 
     public ArrayList<EstudianteEntity> obtenerEstudiantes(){
-        return (ArrayList<EstudianteEntity>) estudianteRepository.findAllStudents();
+        return estudianteRepository.findAllStudents();
     }
 
     public EstudianteEntity obtenerPorRut(String rut){
@@ -53,17 +53,12 @@ public class EstudianteService {
         return e.getAnyo_Egreso();
     }
 
-    // public int obtenerPuntuajeExamen(String rut){
-    //  return examenService.obtenerPuntajePorRut(rut);
-    //}
-
     public void generarCuota(EstudianteEntity e){
 
         String rut = e.getRut();
         int numCuotas = e.getNum_cuotas();
         String tipoColegio = e.getColegio_procedente();
         int anyo = e.getAnyo_Egreso();
-        //int puntuaje = obtenerPuntuajeExamen(rut);
 
         LocalDate fechaActual = LocalDate.now();
         String fecha = fechaActual.toString();

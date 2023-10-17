@@ -37,16 +37,12 @@ public class ExamenService {
         return (ArrayList<ExamenEntity>) examenRepository.findAll();
     }
 
-    //public int obtenerPuntajePorRut(String rut)
-    //{
-    //  ExamenEntity e = examenRepository.findByRut_estudiante(rut);
-    // return e.getPuntaje();
-    // }
-    //public ExamenEntity obtenerExamenPorRut(String rut)
-    //{
-    //  return examenRepository.findByRut_estudiante(rut);
-
-    //}
+    public int obtenerNumExamenes(String rut){
+        return examenRepository.obetenerNumExamenes(rut);
+    }
+    public double obtenerPromedioExamenes(String rut){
+        return examenRepository.obetenerpromedioExamenes(rut);
+    }
     public void guardarExamen(ExamenEntity examen){
         examenRepository.save(examen);
         cuotaService.descuentoPorExamenAdmision(examen.getPuntaje());
@@ -92,7 +88,6 @@ public class ExamenService {
 
         String texto = "";
         BufferedReader bf = null;
-        examenRepository.deleteAll();
 
         try{
             bf = new BufferedReader(new FileReader(direccion));

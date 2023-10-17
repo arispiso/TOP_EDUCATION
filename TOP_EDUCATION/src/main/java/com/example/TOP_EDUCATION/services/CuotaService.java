@@ -11,6 +11,7 @@ import com.example.TOP_EDUCATION.repositories.EstudianteRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,43 @@ public class CuotaService {
     public ArrayList<CuotaEntity> obtenerCuotas(){
         return (ArrayList<CuotaEntity>) cuotaRepository.findAll();
     }
+
+    public ArrayList<CuotaEntity> obtenerCuotasPorRUT(String rut){
+        return cuotaRepository.findByRutEstudiante(rut);
+    }
+
+    public double calcularValorCuotas(String rut){
+
+        ArrayList<CuotaEntity> cuotas = obtenerCuotasPorRUT(rut);
+        double valor = 0;
+        for (int i = 0; i< cuotas.size(); i++){
+            valor+=cuotas.get(i).getValor();
+        }
+        return valor;
+    }
+
+    public double obtenerValorPagado(String rut){
+        List<Double> resultado = cuotaRepository.obtenerValorPagado(rut);
+        if(resultado.get(0)==null){
+            return 0;
+        }
+        return resultado.get(0);
+    }
+    public double obtenerValorPendiente(String rut){
+        List<Double> resultado = cuotaRepository.obtenerValorPendiente(rut);
+        if(resultado.get(0)==null){
+            return 0;
+        }
+        return resultado.get(0);
+    }
+    public int obtenerNumCuotasPagadas(String rut){
+        return cuotaRepository.obtenerNumCuotasPagadas(rut);
+    }
+
+    public int obtenerNumCuotasPendientes(String rut){
+        return cuotaRepository.obtenerNumCuotasPendientes(rut);
+    }
+
 
     public CuotaEntity obtenerPorId(int id) {
         return cuotaRepository.findById(id);
@@ -43,6 +81,7 @@ public class CuotaService {
         LocalDate fechaActual = LocalDate.now();
         int diaActual = fechaActual.getDayOfMonth();
 
+        //MENOS % EN LOS TEST PORQUE NO HACE ESTA PARTE!
         if(diaActual>=5 && diaActual<=10){
              CuotaEntity c =  cuotaRepository.findById(id);
 
@@ -55,18 +94,13 @@ public class CuotaService {
     public void pagarCuota(){
 
         ArrayList<CuotaEntity> cuotas =  obtenerCuotas();
-        int i = 1;
-        boolean enc = false;
 
-        while((i<=cuotas.size()) && !enc){
-            CuotaEntity c = cuotaRepository.findById(i);
+        for(int i = 0; i<=cuotas.size()-1;i++){
+
+            CuotaEntity c = cuotas.get(i);
 
             if(c.getEstado().equalsIgnoreCase("Pendiente")){
-                actualizarEstado(i);
-                enc = true;
-            }
-            else {
-                i++;
+                actualizarEstado(c.getId());
             }
         }
         interesPorAtraso();
@@ -76,20 +110,16 @@ public class CuotaService {
     public void descuentoPorExamenAdmision(int puntaje) {
 
         ArrayList<CuotaEntity> cuotas =  cuotaRepository.findAllCuotas();
-        for(int i=0; i<=cuotas.size(); i++){
-
+        for(int i=0; i<=cuotas.size()-1; i++){
             CuotaEntity c = cuotas.get(i);
             if (c.getEstado().equalsIgnoreCase("Pendiente")) {
                 if (puntaje >= 950 && puntaje <= 1000) {
-                    //10% a todas las cuotas pendientes  de pago
                     c.setValor(c.getValor() - (c.getValor() * 0.1));
                     guardarCuota(c);
                 } else if (puntaje >= 900 && puntaje <= 949) {
-                    //5%
                     c.setValor(c.getValor() - (c.getValor() * 0.05));
                     guardarCuota(c);
                 } else if (puntaje >= 850 && puntaje <= 899) {
-                    //2%
                     c.setValor(c.getValor() - (c.getValor() * 0.02));
                     guardarCuota(c);
                 }
@@ -105,7 +135,7 @@ public class CuotaService {
         LocalDate fechaActual = LocalDate.now();
         int mesActual = fechaActual.getMonthValue();
 
-        for (int i = 0; i<= cuotas.size(); i++) {
+        for (int i = 0; i<= cuotas.size()-1; i++) {
 
             CuotaEntity c = cuotas.get(i);
 
@@ -113,28 +143,24 @@ public class CuotaService {
             String[] partes = fecha.split("-");
             int mes = Integer.parseInt(partes[1]);
 
-            int diferenciaAnyos = mesActual - mes;
+            int diferenciaMeses = mesActual - mes;
 
-            if (diferenciaAnyos <= 0) {
+            if (diferenciaMeses <= 0) {
                 guardarCuota(c);
             }
-            else if (diferenciaAnyos == 1) {
-                //3%
+            else if (diferenciaMeses == 1) {
                 c.setValor(c.getValor() + (c.getValor() * 0.03));
                 guardarCuota(c);
             }
-            else if (diferenciaAnyos == 2) {
-                //6%
+            else if (diferenciaMeses == 2) {
                 c.setValor(c.getValor() + (c.getValor() * 0.06));
                 guardarCuota(c);
             }
-            else if (diferenciaAnyos == 3) {
-                //9%
+            else if (diferenciaMeses == 3) {
                 c.setValor(c.getValor() + (c.getValor() * 0.09));
                 guardarCuota(c);
             }
             else {
-                //15%
                 c.setValor(c.getValor() + (c.getValor() * 0.15));
                 guardarCuota(c);
             }

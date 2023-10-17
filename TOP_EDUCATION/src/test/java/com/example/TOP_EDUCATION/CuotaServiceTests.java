@@ -173,27 +173,116 @@ public class CuotaServiceTests {
         EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
         estudianteService.guardarEstudiante(e);
 
-        cuotaService.guardarCuota(cc);
         cuotaService.guardarCuota(c);
+        cuotaService.guardarCuota(cc);
 
         cuotaService.pagarCuota();
 
-        CuotaEntity c1 = cuotaService.obtenerPorId(cc.getId());
-        CuotaEntity c2 = cuotaService.obtenerPorId(c.getId());
+        CuotaEntity c1 = cuotaService.obtenerPorId(c.getId());
+        CuotaEntity c2 = cuotaService.obtenerPorId(cc.getId());
 
-        assertEquals(1,c2.getId());
-        assertEquals(2,c1.getId());
+        assertEquals(1,c1.getId());
+        assertEquals(2,c2.getId());
+
 
         //Solo sirve entre los días 5 y 10 de cada mes
-        //assertEquals("Solicitado para pagar",c2.getEstado());
+        //assertEquals("Solicitado para pagar",c1.getEstado());
+        assertEquals("Solicitado para pagar",c2.getEstado());
 
-        assertEquals("Solicitado para pagar",c1.getEstado());
-        assertEquals("Pendiente",c2.getEstado());
+        //Sino, este sería el assertEquals a probar:
+        assertEquals("Pendiente",c1.getEstado());
 
 
-        cuotaService.eliminarCuota(cc);
         cuotaService.eliminarCuota(c);
+        cuotaService.eliminarCuota(cc);
         estudianteService.eliminarEstudiante(e);
+
+    }
+
+
+    @Test
+    public void descuentoPorExamenAdmisionTest(){
+
+        int id = 1;
+        String estado = "Pendiente";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        int puntaje = 951;
+        int puntaje1 = 921;
+        int puntaje2 = 891;
+
+        EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+
+        estudianteService.guardarEstudiante(e);
+
+        cuotaService.guardarCuota(c);
+        cuotaService.descuentoPorExamenAdmision(puntaje);
+        assertEquals(9000,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c);
+
+        cuotaService.guardarCuota(c);
+        cuotaService.descuentoPorExamenAdmision(puntaje1);
+        assertEquals(9500,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c);
+
+        cuotaService.guardarCuota(c);
+        cuotaService.descuentoPorExamenAdmision(puntaje2);
+        assertEquals(9800,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c);
+
+    }
+
+    @Test
+    public void interesPorAtrasoTest(){
+
+        int id = 1;
+        String estado = "Pendiente";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,null,null,null,null,null,0,null,0);
+        estudianteService.guardarEstudiante(e);
+
+
+        CuotaEntity c = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        cuotaService.guardarCuota(c);
+
+        cuotaService.interesPorAtraso();
+        assertEquals(valor,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-09-12");
+        cuotaService.guardarCuota(c1);
+
+        cuotaService.interesPorAtraso();
+        assertEquals(10300,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c1);
+
+        CuotaEntity c2 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-08-12");
+        cuotaService.guardarCuota(c2);
+
+        cuotaService.interesPorAtraso();
+        assertEquals(10600,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c2);
+
+        CuotaEntity c3 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-07-12");
+        cuotaService.guardarCuota(c3);
+
+        cuotaService.interesPorAtraso();
+        assertEquals(10900,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c3);
+
+
+        CuotaEntity c4 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-03-12");
+        cuotaService.guardarCuota(c4);
+
+        cuotaService.interesPorAtraso();
+        assertEquals(11500,cuotaService.obtenerPorId(id).getValor());
+        cuotaService.eliminarCuota(c4);
 
     }
 }

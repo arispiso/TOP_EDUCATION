@@ -5,12 +5,13 @@ import com.example.TOP_EDUCATION.entities.ExamenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-
+@Repository
 public interface ExamenRepository extends JpaRepository<ExamenEntity,Long> {
 
-    //public ExamenEntity findByRut_estudiante(String rut);
+    //public ArrayList<ExamenEntity> findByRut_estudiante(String rut);
 
     //dos maneras diferentes de hacer una consulta a nuestra BD,
     // en este caso para buscar por su nombre
@@ -20,5 +21,15 @@ public interface ExamenRepository extends JpaRepository<ExamenEntity,Long> {
     @Query(value = "select * from examenes as e where e.id= :id",
             nativeQuery = true)
     ExamenEntity findByIdNativeQuery(@Param("id")int id);
+
+    @Query(value = "select count(*) from examenes as e where e.rut_estudiante=:rut_estudiante",
+            nativeQuery = true)
+    int obetenerNumExamenes(@Param("rut_estudiante")String rut_estudiante);
+
+    @Query(value = "select avg(e.puntaje) from examenes as e where e.rut_estudiante=:rut_estudiante",
+            nativeQuery = true)
+    double obetenerpromedioExamenes(@Param("rut_estudiante")String rut_estudiante);
+
+
 
 }
