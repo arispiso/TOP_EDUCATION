@@ -30,7 +30,7 @@ public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
             nativeQuery = true)
     ArrayList<CuotaEntity> findAllCuotas();
 
-    @Query(value = "select count(*) from cuotas where estado = 'Solicitado a pagar' AND rut_estudiante=:rut_estudiante ",
+    @Query(value = "select count(*) from cuotas where estado = 'Solicitado para pagar' AND rut_estudiante=:rut_estudiante ",
             nativeQuery = true)
     int obtenerNumCuotasPagadas(@Param("rut_estudiante")String rut_estudiante);
 
@@ -38,7 +38,7 @@ public interface CuotaRepository extends JpaRepository<CuotaEntity,Long> {
             nativeQuery = true)
     int obtenerNumCuotasPendientes(@Param("rut_estudiante")String rut_estudiante);
 
-    @Query(value = "select sum(valor) from cuotas where estado = 'Solicitado a pagar' AND rut_estudiante=:rut_estudiante ",
+    @Query(value = "select sum(valor) from cuotas where estado = 'Solicitado para pagar' AND rut_estudiante=:rut_estudiante ",
             nativeQuery = true)
     List<Double> obtenerValorPagado(@Param("rut_estudiante")String rut_estudiante);
 

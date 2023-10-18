@@ -60,6 +60,188 @@ public class CuotaServiceTests {
     }
 
     @Test
+    public void obtenerCuotasPorRutTest() {
+
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        EstudianteEntity e1 = new EstudianteEntity("123","Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+        estudianteService.guardarEstudiante(e1);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c3 = new CuotaEntity(3,estado2,valor,cantidad_cuotas,"123","2023-10-12");
+
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+        cuotaService.guardarCuota(c3);
+
+        ArrayList<CuotaEntity> resultado = cuotaService.obtenerCuotasPorRUT(rut);
+
+        assertEquals(2, resultado.size());
+        assertEquals("Pendiente", resultado.get(0).getEstado());
+        assertEquals("Solicitado para pagar", resultado.get(1).getEstado());
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        cuotaService.eliminarCuota(c3);
+        estudianteService.eliminarEstudiante(e);
+        estudianteService.eliminarEstudiante(e1);
+    }
+
+    @Test
+    public void calcularValorCuotas(){
+
+
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,3000,cantidad_cuotas,rut,"2023-10-12");
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+
+        double resultado = cuotaService.calcularValorCuotas(rut);
+
+        assertEquals(13000,resultado);
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        estudianteService.eliminarEstudiante(e);
+
+    }
+
+    @Test
+    public void obtenerValorPagadoTest(){
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,3000,cantidad_cuotas,rut,"2023-10-12");
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+
+        double resultado = cuotaService.obtenerValorPagado(rut);
+
+        assertEquals(3000,resultado);
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        estudianteService.eliminarEstudiante(e);
+    }
+
+    @Test
+    public void obtenerValorPendienteTest(){
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,3000,cantidad_cuotas,rut,"2023-10-12");
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+
+        double resultado = cuotaService.obtenerValorPendiente(rut);
+
+        assertEquals(10000,resultado);
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        estudianteService.eliminarEstudiante(e);
+    }
+
+    @Test
+    public void obtenerNumCuotasPagadasTest(){
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado2,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado2,3000,cantidad_cuotas,rut,"2023-10-12");
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+
+        int resultado = cuotaService.obtenerNumCuotasPagadas(rut);
+
+        assertEquals(2,resultado);
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        estudianteService.eliminarEstudiante(e);
+    }
+
+    @Test
+    public void obtenerNumCuotasPendientesTest(){
+        int id = 1;
+        int id2 = 2;
+        String estado = "Pendiente";
+        String estado2 = "Solicitado para pagar";
+        double valor = 10000;
+        int cantidad_cuotas = 1;
+        String rut = "12345678-K";
+
+        EstudianteEntity e = new EstudianteEntity(rut,"Aritz","Lamelas",null,null,null,1,null, 1);
+        estudianteService.guardarEstudiante(e);
+
+        CuotaEntity c1 = new CuotaEntity(id,estado,valor,cantidad_cuotas,rut,"2023-10-12");
+        CuotaEntity c2 = new CuotaEntity(id2,estado,3000,cantidad_cuotas,rut,"2023-10-12");
+
+        cuotaService.guardarCuota(c1);
+        cuotaService.guardarCuota(c2);
+
+        int resultado = cuotaService.obtenerNumCuotasPendientes(rut);
+
+        assertEquals(2,resultado);
+
+        cuotaService.eliminarCuota(c1);
+        cuotaService.eliminarCuota(c2);
+        estudianteService.eliminarEstudiante(e);
+    }
+
+    @Test
     public void obtenerPorIdTest() {
 
         int id = 1;
